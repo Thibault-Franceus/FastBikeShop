@@ -127,6 +127,11 @@ body{
   z-index: 1;
 }
 
+.card .imgBox img {
+  max-width: 100%;
+  transition: 0.5s;
+}
+
 /*
 .card .imgBox img {
     max-width: 100%;
@@ -182,9 +187,4 @@ body{
 .card:hover .contentBox .buy {
   top: 0;
   opacity: 1;
-}
-
-.mouse {
-  height: 300px;
-  width: auto;
 }
