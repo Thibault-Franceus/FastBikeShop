@@ -83,7 +83,8 @@
          */ 
         public function getPassword()
         {
-                return $this->password;
+            return $this->password;
+
         }
 
         /**
@@ -93,10 +94,18 @@
          */ 
         public function setPassword($password)
         {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $options = [
+                'cost'=> 6,
+            ];
+            $hash = password_hash($password, PASSWORD_BCRYPT, $options);
+
                 if(empty($password)){
                     throw new Exception("Password cannot be empty");
                 }
-                $this->password = $password;
+                $this->password = $hash;
 
                 return $this;
         }

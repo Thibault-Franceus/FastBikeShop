@@ -9,6 +9,7 @@
 		$user->setEmail($_POST['email']);
 		$user->setPassword($_POST['password']);
 		$user->register();
+        header('Location: login.php');
 		}
 		catch(Exception $e){
 			$error = $e->getMessage();

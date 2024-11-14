@@ -2,10 +2,17 @@
     include_once(__DIR__ . '/Classes/Db.php');
     include_once(__DIR__ . '/Classes/Product.php');
 
+    session_start();
+    if($_SESSION['loggedin'] !== true){
+    header('location: login.php');
+  }
+
     $conn = Db::getConnection();
     $stmt = $conn->query('SELECT * FROM products');
     $stmt->execute();
     $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 
     $products = Product::getAllProducts();
 

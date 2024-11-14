@@ -1,4 +1,41 @@
-<!DOCTYPE html>
+<?php
+
+include_once(__DIR__ . '/Classes/Db.php');
+include_once(__DIR__ . '/Classes/User.php');
+
+function canLogIn($email, $password){
+    $conn = Db::getConnection();
+    $statement = $conn->prepare("select * from users where email = :email");
+    $statement->bindValue(':email', $email);
+    $statement->execute();
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if(!$user){
+        return false;
+    }
+
+    if(password_verify($password, $user['password'])){
+        return true;
+    }
+    return false;
+
+}
+
+if(!empty($_POST)){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    if(canLogIn($email, $password)){
+        session_start();
+        $_SESSION['user'] = $email;
+        header('Location: index.php');
+    }else{
+        $error = "Email or password is incorrect";
+    }
+}
+
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
