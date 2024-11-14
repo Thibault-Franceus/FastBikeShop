@@ -27,10 +27,19 @@
     <h1>webshop</h1>
     <ul>
         <?php foreach($products as $product): ?>
-            <li>
-                <h2><?php echo $product['Title']; ?></h2>
-                <p><?php echo $product['Price']; ?></p>
-            </li>
+            <div class="card">
+
+  <div class="imgBox">
+    <img src="" alt="mouse corsair" class="mouse">
+  </div>
+
+  <div class="contentBox">
+    <h3>Mouse Corsair M65</h3>
+    <h2 class="price">61.<small>98</small> €</h2>
+    <a href="#" class="buy">Buy Now</a>
+  </div>
+
+</div> 
         <?php endforeach; ?>
     
 </body>
