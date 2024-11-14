@@ -1,0 +1,15 @@
+{
+    "name": "thiba/fast-bike-shop",
+    "autoload": {
+        "psr-4": {
+            "Thiba\\FastBikeShop\\": "Classes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Thibault-Franceus",
+            "email": "r1006946@student.thomasmore.be"
+        }
+    ],
+    "require": {}
+}
