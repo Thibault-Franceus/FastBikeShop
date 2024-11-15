@@ -79,7 +79,11 @@ body{
 }
 
 
-
+.webshop
+{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
 
 
 .card {

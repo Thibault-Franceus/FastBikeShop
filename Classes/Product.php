@@ -4,6 +4,7 @@
     class Product {
         private $title;
         private $description;
+        private $image;
         /**
          * Get the value of title
          */ 
@@ -48,11 +49,38 @@
         }
 
 
-        public static function getAllProducts(){
-            $conn = Db::getConnection();
-            $stmt = $conn->query('SELECT * FROM products');
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        public function getImage(){
+            return $this->image;
         }
+
+         
+
+        public function setImage($image){
+            $this->image = $image;
+            return $this;
+        }
+
+
+        public static function getAllProducts(){
+                $conn = Db::getConnection();
+                $stmt = $conn->query('
+                    SELECT 
+                        products.ID AS product_id, 
+                        products.Title, 
+                        products.Description, 
+                        products.Price, 
+                        images.url AS image_url 
+                    FROM 
+                        products 
+                    INNER JOIN 
+                        images 
+                    ON 
+                        products.image_id = images.ID
+                ');
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        
     }
 
 

@@ -11,6 +11,8 @@
 
     $products = Product::getAllProducts();
 
+    
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +28,7 @@
         <div class="card">
 
             <div class="imgBox">
-                <img src="https://media.trekbikes.com/image/upload/w_1200/CheckpointALR3-25-47530-A-Primary" alt="mouse corsair" class="mouse">
+                <img src="<?php echo $product['image_url'] ?>" alt="" class="mouse">
             </div>
 
             <div class="contentBox">
