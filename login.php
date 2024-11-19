@@ -10,15 +10,18 @@ function canLogIn($email, $password){
     $statement->execute();
     $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-    if(!$user){
+    if($user){
+        $hash = $user['password'];
+        if(password_verify($password, $hash)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
         return false;
     }
-
-    if(password_verify($password, $user['password'])){
-        return true;
-    }
-    return false;
-
 }
 
 if(!empty($_POST)){
@@ -27,10 +30,12 @@ if(!empty($_POST)){
 
     if(canLogIn($email, $password)){
         session_start();
-        $_SESSION['user'] = $email;
+        $_SESSION['loggedin'] = true;
+        $_SESSION['email'] = $email;
+
         header('Location: index.php');
     }else{
-        $error = "Email or password is incorrect";
+        $error = true;
     }
 }
 

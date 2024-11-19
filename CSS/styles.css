@@ -94,7 +94,7 @@ body {
     padding: 15px;
     font-size: 1rem;
     color: #fff;
-    background: #007bff;
+    background: red;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -103,7 +103,7 @@ body {
 }
 
 .add-to-cart:hover {
-    background: #0056b3;
+    background: red;
 }
 
 /* Additional Info Section */

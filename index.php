@@ -1,18 +1,21 @@
 <?php
     include_once(__DIR__ . '/Classes/Db.php');
     include_once(__DIR__ . '/Classes/Product.php');
-
-    $conn = Db::getConnection();
-    $stmt = $conn->query('SELECT * FROM products');
-    $stmt->execute();
-    $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-    $products = Product::getAllProducts();
-
     
+    session_start();
+    if($_SESSION['loggedin'] !== true){
+        header('location: login.php');
+    }
 
+    // Get search and category filter values from the form (if any)
+    $search = isset($_POST['search']) ? $_POST['search'] : '';
+    $category = isset($_POST['category']) ? $_POST['category'] : 'all';
+
+    // Get products based on filters
+    $products = Product::getFilteredProducts($search, $category);
+
+    // Fetch categories for the dropdown
+    $categories = Product::getAllCategories();
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,25 +25,48 @@
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-    <h1>webshop</h1>
-    <div class="webshop">
-        <?php foreach($products as $product): ?>
-        <div class="card">
-
-            <div class="imgBox">
-                <img src="<?php echo $product['image_url'] ?>" alt="" class="mouse">
-            </div>
-
-            <div class="contentBox">
-                <h3><?php echo $product['Title']; ?></h3>
-                <h2 class="price"><?php echo $product['Price']; ?> €</h2>
-                <a href="#" class="buy">Buy Now</a>
-            </div>
-        </div> 
-        <?php endforeach; ?>
-
-
-    </div>
+    <?php include_once(__DIR__ . '/nav.inc.php'); ?>
+    <h1>Products</h1>
     
+    <div class="webshop">
+        <div class="sidebar">
+            <h2>Filter</h2>
+            <form action="index.php" method="post">
+                <label for="search">Search Products:</label>
+                <input type="text" name="search" id="search" placeholder="Search by name" value="<?php echo htmlspecialchars($search); ?>">
+                <br>
+                <label for="category">Category:</label>
+                <select name="category" id="category">
+                    <option value="all">All</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?php echo $category['ID']; ?>" <?php echo $category['ID'] == $category ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($category['name']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <br>
+                <button type="submit">Filter</button>
+            </form>
+        </div>
+
+        <div class="main-content">
+            <div class="products">
+                <?php foreach($products as $product): ?>
+                    <div class="card">
+                        <div class="imgBox">
+                            <img src="<?php echo $product['image_url']; ?>" alt="Product Image" class="mouse">
+                        </div>
+                        
+                        <div class="contentBox">
+                            <h3><?php echo htmlspecialchars($product['Title']); ?></h3>
+                            <h2 class="price"><?php echo $product['Price']; ?> €</h2>
+                             <!-- Add to Cart button (adjust this logic as needed) -->
+                            <a href="details.php?products_ID=<?php echo $product['product_id']; ?>" class="buy">Add to Cart</a>
+                        </div>
+                    </div> 
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

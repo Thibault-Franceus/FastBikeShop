@@ -1,11 +1,30 @@
 <nav class="navbar">
-    <a href="index.php" class="logo">Fast</a>
-    <a href="index.php">Home</a>
-    <a href="mylist.php">My Cart</a>
-    
-    <form action="" method="get">
-      <input type="text" name="search">
-    </form>
-    
-    <a href="logout.php" class="navbar__logout">Hi <?php echo htmlspecialchars($_SESSION['firstname']);?>, you wanna logout?</a>
+   <a class="logo" href="index.php">
+    <img src="https://baloisetreklions.be/wp-content/uploads/sites/134/2022/08/trek.png" alt="">
+</a> 
+   <div class="nav-items">
+    <div class="profile">
+      <button class="dropdown-toggle"><?php echo htmlspecialchars($_SESSION['email']); ?></button>
+      <div class="dropdown-menu profile-menu">
+        <p>Your currency: <span id="currency"></span></p>
+        <a href="">Orders</a>
+        <a href="logout.php">Logout?</a>
+      </div>
+    </div>
+
+      <div class="basket">
+        <button class="dropdown-toggle">Basket</button>
+        <div class="dropdown-menu basket-menu">
+          <p id="empty-basket">Basket is empty</p>
+          <div id="basket-items-container"></div>
+          <p>Total Price: <span id="total-price"></span></p>
+          <p>Currency Left: <span id="currency-left"></span></p>
+          <button id="place-order">Place order</button>
+        </div>
+
+      </div>
+
+   </div>
 </nav>
+
+<script src="script.js"></script>

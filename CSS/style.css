@@ -1,5 +1,6 @@
 body{
     font-family: 'Roboto', sans-serif;
+    background-color: gainsboro ;
 }
 
 .bikeShopLogin
@@ -79,10 +80,42 @@ body{
 }
 
 
-.webshop
-{
+.webshop {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 3fr; /* 1 fraction for sidebar, 3 fractions for main content */
+  gap: 20px; /* Adds spacing between columns */
+  background-color: gainsboro;
+}
+
+/* Sidebar (filter) style */
+.sidebar {
+  background-color: #f0f0f0; /* Example background */
+  padding: 10px; /* Padding for sidebar */
+}
+
+/* Example CSS for the sidebar form */
+.sidebar form {
+  margin-bottom: 20px;
+}
+
+.sidebar label {
+  display: block;
+  margin-top: 10px;
+}
+
+.sidebar input, .sidebar select {
+  width: 80%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+
+/* Main content (product grid) */
+
+/* Grid layout for products, 3 equal columns */
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
 }
 
 
@@ -93,6 +126,7 @@ body{
   background: #191919;
   border-radius: 20px;
   overflow: hidden;
+  margin-top: 20px;
 }
 
 .card::before {
@@ -101,7 +135,7 @@ body{
   top: -50%;
   width: 100%;
   height: 100%;
-  background: #ffce00;
+  background: white;
   transform: skewY(345deg);
   transition: 0.5s;
 }
@@ -179,9 +213,9 @@ body{
   opacity: 0;
   padding: 10px 30px;
   margin-top: 15px;
-  color: #000000;
+  color: white;
   text-decoration: none;
-  background: #ffce00;
+  background: red;
   border-radius: 30px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -191,4 +225,114 @@ body{
 .card:hover .contentBox .buy {
   top: 0;
   opacity: 1;
+}
+
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: red;
+  color: black;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.nav-items {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 10px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.profile-menu {
+  left: 0;
+}
+
+.basket-menu {
+  right: 0;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.basket-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.basket-item img {
+  width: 50px;
+  height: 50px;
+}
+
+.basket-details {
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+.basket-item button {
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.basket-item button:hover {
+  background-color: darkred;
+}
+
+#place-order {
+  padding: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#place-order:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+/* Show dropdown */
+.nav-items .profile:hover .profile-menu,
+.nav-items .basket:hover .basket-menu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
 }
