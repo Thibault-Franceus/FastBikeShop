@@ -1,6 +1,5 @@
 <?php 
     class Db {
-        private static $conn = null;
 
         public static function getConnection(){
             $pathToSSL = __DIR__ . '/config/DigiCertGlobalRootG2.crt.pem';
