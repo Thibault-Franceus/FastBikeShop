@@ -12,7 +12,7 @@
     $db = 'bikeshop';
     $user = 'trekbikes';
     $pass = '4rL#2m$9Bn@7tQv!';
-    $db = new PDO("mysql:host=$host;dbname=$db", $user, $pass, $options);
+    $db = new PDO("mysql:host=$host;port=3306;dbname=$db", $user, $pass, $options);
         }
     }
 
