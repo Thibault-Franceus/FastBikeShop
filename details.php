@@ -2,8 +2,11 @@
     include_once(__DIR__ . '/Classes/Db.php');
     include_once(__DIR__ . '/Classes/Product.php');
     include_once(__DIR__ . '/Classes/bootstrap.php');
+    include_once(__DIR__ . '/Classes/User.php');
     
     $products = Product::getAllProducts();
+
+    $user = User::getUserByEmail($_SESSION['email']);
 
     // Check if product ID exists in the URL query string
     if (!isset($_GET['products_ID'])) {

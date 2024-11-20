@@ -41,3 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleDropdown(profileButton, profileMenu);
     toggleDropdown(basketButton, basketMenu);
   });
+
+
+  

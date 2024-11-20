@@ -1,11 +1,15 @@
 <?php
     include_once(__DIR__ . '/Classes/Db.php');
     include_once(__DIR__ . '/Classes/Product.php');
+    include_once(__DIR__ . '/Classes/User.php');
+
     
     session_start();
     if($_SESSION['loggedin'] !== true){
         header('location: login.php');
     }
+    
+    $user = User::getUserByEmail($_SESSION['email']);
 
     // Get search and category filter values from the form (if any)
     $search = isset($_POST['search']) ? $_POST['search'] : '';
@@ -45,7 +49,7 @@
                     <?php endforeach; ?>
                 </select>
                 <br>
-                <button type="submit">Filter</button>
+                <button class="btn" type="submit">Filter</button>
             </form>
         </div>
 
@@ -61,7 +65,7 @@
                             <h3><?php echo htmlspecialchars($product['Title']); ?></h3>
                             <h2 class="price"><?php echo $product['Price']; ?> €</h2>
                              <!-- Add to Cart button (adjust this logic as needed) -->
-                            <a href="details.php?products_ID=<?php echo $product['product_id']; ?>" class="buy">Add to Cart</a>
+                            <a href="details.php?products_ID=<?php echo $product['product_id']; ?>" class="buy">More info</a>
                         </div>
                     </div> 
                 <?php endforeach; ?>

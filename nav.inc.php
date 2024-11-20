@@ -4,9 +4,9 @@
 </a> 
    <div class="nav-items">
     <div class="profile">
-      <button class="dropdown-toggle"><?php echo htmlspecialchars($_SESSION['email']); ?></button>
+      <button class="dropdown-toggle"><?php echo htmlspecialchars($user['firstname']); ?></button>
       <div class="dropdown-menu profile-menu">
-        <p>Your currency: <span id="currency"></span></p>
+        <p>Your currency: <?php echo htmlspecialchars($user['coins']) ?> <span id="currency"></span></p>
         <a href="">Orders</a>
         <a href="logout.php">Logout?</a>
       </div>

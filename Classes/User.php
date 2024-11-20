@@ -6,6 +6,8 @@
         private $lastname;
         private $email;
         private $password;
+        private $role;
+        private $coins;
 
         
 
@@ -110,6 +112,14 @@
                 return $this;
         }
 
+        public function getRole(){
+            return $this->role;
+        }
+
+        public function getCoins(){
+            return $this->coins;
+        }
+
         public function register(){
                 $conn = Db::getConnection();
                 $statement = $conn->prepare("INSERT INTO users (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)");
@@ -118,6 +128,14 @@
                 $statement->bindValue(':email', $this->email);
                 $statement->bindValue(':password', $this->password);
                 return $statement->execute();
+        }
+
+        public static function getUserByEmail($email){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT * FROM users WHERE email = :email");
+            $statement->bindValue(':email', $email);
+            $statement->execute();
+            return $statement->fetch();
         }
     }
 
