@@ -1,14 +1,4 @@
 <?php
-    $pathToSSL = __DIR__ . '/config/DigiCertGlobalRootG2.crt.pem';
-    $options = array(
-        PDO::MYSQL_ATTR_SSL_CA => $pathToSSL
-    );
-
-    $host = '';
-    $db = '';
-    $user = '';
-    $pass = '';
-    $db = new PDO("mysql:host=$host;dbname=$db", $user, $pass, $options);
 
 
     include_once(__DIR__ . '/Classes/Db.php');
