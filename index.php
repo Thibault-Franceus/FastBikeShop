@@ -1,6 +1,4 @@
 <?php
-
-
     include_once(__DIR__ . '/Classes/Db.php');
     include_once(__DIR__ . '/Classes/Product.php');
     include_once(__DIR__ . '/Classes/User.php');

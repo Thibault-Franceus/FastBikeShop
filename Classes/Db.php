@@ -2,7 +2,7 @@
     class Db {
 
         public static function getConnection(){
-            $pathToSSL = __DIR__ . '/DigiCertGlobalRootG2.crt.pem';
+            $pathToSSL = __DIR__ . '/cacert.pem';
     $options = array(
         PDO::MYSQL_ATTR_SSL_CA => $pathToSSL
     );
