@@ -154,7 +154,7 @@ body {
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
     display: inline-block;
@@ -192,4 +192,59 @@ body {
     margin: 0;
     font-size: 14px;
     color: #999;
+}
+
+
+
+.profile-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    max-width: 600px;
+}
+
+.profile-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form__field {
+    width: 48%;
+    margin-bottom: 15px;
+}
+
+.form__field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form__field input[type="text"],
+.form__field input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn--primary {
+    background-color: red;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn--primary:hover {
+    background-color: #0056b3;
 }

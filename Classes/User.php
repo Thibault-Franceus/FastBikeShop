@@ -137,7 +137,39 @@
             $statement->execute();
             return $statement->fetch();
         }
+
+        public static function isEmailAvailable($email){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT * FROM users WHERE email = :email");
+            $statement->bindValue(':email', $email);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($statement->rowCount()==0){
+                return true;
+            } else {
+                return false;
+            }
+        }  
+        
+        public static function changePassword($email, $password) {
+            if (empty($password)) {
+                throw new Exception("Password cannot be empty");
+            }
+    
+            $options = [
+                'cost' => 6,
+            ];
+            $hash = password_hash($password, PASSWORD_BCRYPT, $options);
+    
+            // Update the password in the connected database
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("UPDATE users SET password = :password WHERE email = :email");
+            $statement->bindValue(':password', $hash);
+            $statement->bindValue(':email', $email);
+            return $statement->execute();
+        }
     }
+    
 
 
 ?>

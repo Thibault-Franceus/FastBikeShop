@@ -8,6 +8,7 @@
       <div class="dropdown-menu profile-menu">
         <p>Your currency: <?php echo htmlspecialchars($user['coins']) ?> <span id="currency"></span></p>
         <a href="">Orders</a>
+        <a href="profile.php">Profile</a>
         <a href="logout.php">Logout?</a>
       </div>
     </div>
