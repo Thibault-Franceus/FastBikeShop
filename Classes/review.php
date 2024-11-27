@@ -55,6 +55,16 @@
             return $this;
         }
 
+        public static function getUserById($id){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("select * from users where id = :id");
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            $name = $result['firstname'];
+            return $name;
+        }
+
         public function getAllReviews($product_id){
             $conn = Db::getConnection();
             $statement = $conn->prepare("select reviews.*, users.firstname
@@ -69,15 +79,15 @@
 
         public function addReview(){
             $conn = Db::getConnection();
-            $statement = $conn->prepare("insert into reviews (comment, date, product_id, user_id) values (:comment, :date, :product_id, :user_id)");
+            $statement = $conn->prepare("insert into reviews (comment, created_at, product_id, user_id) values (:comment, :created_at, :product_id, :user_id)");
             $comment = $this->getComment();
             $date = date('Y-m-d H:i:s');
             $product_id = $this->getProductID();
             $user_id = $this->getUserID();
             $statement->bindValue(':comment', $comment);
-            $statement->bindValue(':date', $date);
+            $statement->bindValue(':created_at', $date);
             $statement->bindValue(':product_id', $product_id);
-            $statement->bindValue(':firstname', $user_id);
+            $statement->bindValue(':user_id', $user_id);
             $statement->execute();
         }
 
