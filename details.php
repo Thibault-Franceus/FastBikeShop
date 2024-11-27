@@ -37,9 +37,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Page</title>
+    <title><?php echo $product['Title']; ?></title>
     <link rel="stylesheet" href="CSS/styles.css">
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
 <body>
     <?php include_once(__DIR__ . '/nav.inc.php'); ?>
@@ -85,26 +86,58 @@
         <!-- Additional Information Section -->
         <section class="additional-info">
             <h2>Reviews</h2>
-            <form action="Classes/add_review.php" method="post" class="add-review">
 
             <div class="review-form">
                 <label for="review">Write a review:</label>
                 <textarea name="review" id="review" class="review-textarea"></textarea>
-                <button type="submit" class="submit-review-btn">Submit Review</button>
+                <input type="hidden" name="product_id" value="<?php echo $product['ID']; ?>">
+                <input type="hidden" name="user_id" value="<?php echo $user['ID']; ?>">
+                <div class="submit-review-btn">Submit Review</div>
             </div>
 
             <div class="reviews">
                 <?php foreach($reviews as $review): ?>
                     <div class="review">
-                        <h3><?php echo htmlspecialchars($review['comment']); ?></h3>
-                        <p><?php echo $review['created_at']; ?></p>
-                        <h4><?php echo $review['firstname']; ?></h4>
+                        <h3><?php echo htmlspecialchars($review['firstname']); ?></h3>
+                        <p><?php echo $review['comment']; ?></p>
+                        <h4><?php echo $review['created_at']; ?></h4>
                     </div>
                 <?php endforeach; ?>
             </div>
 
         </section>
     </main>
+<script>
+    let reviewForm = document.querySelector('.submit-review-btn').addEventListener('click', function(){
+        let review = document.querySelector('.review-textarea').value;
+        let product_id = document.querySelector('input[name="product_id"]').value;
+        let user_id = document.querySelector('input[name="user_id"]').value;
 
+        let formData = new FormData();
+        formData.append('comment', review);
+        formData.append('product_id', product_id);
+        formData.append('user_id', user_id);
+
+        fetch('ajax/addreview.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result =>{
+            let newReview = document.createElement('div');
+            newReview.classList.add('review');
+            newReview.innerHTML = `
+                
+                    <h3>${result.firstname}</h3>
+                    <p>${result.comment}</p>
+                    <h4>${result.created_at}</h4>
+                
+            `;
+            document.querySelector('.reviews').appendChild(newReview);
+        })
+        .catch(error => 
+            console.error('Error:', error));
+    }); 
+</script>
 </body>
 </html>
