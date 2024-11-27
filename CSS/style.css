@@ -109,6 +109,30 @@ body{
   margin-top: 5px;
 }
 
+.sidebar h2 {
+  font-weight: bold; /* Makes the "Filter" text bold */
+}
+
+.sidebar label {
+  font-weight: bold; /* Makes the form labels bold */
+}
+
+.sidebar .btn {
+  background-color: red; /* Red background for the button */
+  color: white; /* White text for the button */
+  border: none; /* Removes the default border */
+  border-radius: 25px; /* Makes the button round */
+  padding: 10px 20px; /* Adds padding for better appearance */
+  cursor: pointer; /* Changes the cursor to pointer on hover */
+  font-weight: bold; /* Makes button text bold */
+  transition: background-color 0.3s ease; /* Adds a smooth hover effect */
+}
+
+.sidebar .btn:hover {
+  background-color: darkred; /* Darkens the red background on hover */
+}
+
+
 
 /* Main content (product grid) */
 
@@ -337,4 +361,37 @@ body{
   display: block;
   opacity: 1;
   visibility: visible;
+}
+
+
+.product-details .add-to-cart-form {
+  margin-top: 20px; /* Adjust space between product info and form */
+}
+
+.product-details .product-size label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.product-details .size-dropdown {
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.product-details .add-to-cart-btn {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.product-details .add-to-cart-btn:hover {
+  background-color: darkred;
 }
