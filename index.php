@@ -25,8 +25,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bikeshop</title>
+    <title>Trek Bikes</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
 <body>
     <?php include_once(__DIR__ . '/nav.inc.php'); ?>
@@ -41,9 +42,10 @@
                 <br>
                 <label for="category">Category:</label>
                 <select name="category" id="category">
+                    <option disabled selected hidden value="bla">Categories</option>
                     <option value="all">All</option>
                     <?php foreach ($categories as $category): ?>
-                        <option value="<?php echo $category['ID']; ?>" <?php echo $category['ID'] == $category ? 'selected' : ''; ?>>
+                        <option value="<?php echo $category['ID']; ?>" <?php echo $category['ID'] == $category ? 'selected' : '';?>>
                             <?php echo htmlspecialchars($category['name']); ?>
                         </option>
                     <?php endforeach; ?>

@@ -23,8 +23,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registreer</title>
     <link rel="stylesheet" href="CSS/style.css">
+	<link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
 <body>
 <div class="bikeShopLogin">
@@ -45,15 +46,16 @@
 					<label for="Lastname">Achternaam</label>
 					<input type="text" name="lastname">
 					<label for="Email">Email</label>
-					<input type="text" name="email">
+					<input type="text" name="email" id="email">
+					<div id="email-check-status" class="form__status"></div>
 				</div>
 				<div class="form__field">
-					<label for="Password">Passwoord</label>
+					<label for="Password">Password</label>
 					<input type="password" name="password">
 				</div>
 
 				<div class="form__field">
-					<input type="submit" value="Registreer" class="btn btn--primary">	
+					<input type="submit" value="Registreer" class="btn btn--primary" disabled>	
 					<input type="checkbox" id="rememberMe"><label for="rememberMe" class="label__inline">Onthoud mij</label>
 				</div>
                 <div class="form__field">
@@ -65,5 +67,28 @@
 			</form>
 		</div>
 	</div>
+
+	<script>
+		document.querySelector('#email').addEventListener('keyup', function(){
+			let email = this.value;
+			let formData = new FormData();
+			formData.append('email', email);
+
+			fetch('ajax/checkemail.php', {
+				method: 'POST',
+				body: formData
+			})
+			.then(response => response.json())
+			.then(result =>{
+				if(result.available === true){
+					document.querySelector('#email-check-status').innerHTML = 'Email is available';
+					document.querySelector('.btn').removeAttribute('disabled');
+				}else{
+					document.querySelector('#email-check-status').innerHTML = 'Email is not available';
+				}
+			})
+			.catch(error => console.error('Error:', error));
+		})
+	</script>
 </body>
 </html>

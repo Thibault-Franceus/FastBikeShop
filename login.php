@@ -47,6 +47,7 @@ if(!empty($_POST)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="CSS/style.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
 <body>
 <div class="bikeShopLogin">
@@ -66,7 +67,7 @@ if(!empty($_POST)){
 					<input type="text" name="email">
 				</div>
 				<div class="form__field">
-					<label for="Password">Passwoord</label>
+					<label for="Password">Password</label>
 					<input type="password" name="password">
 				</div>
 
