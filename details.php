@@ -3,6 +3,7 @@
     include_once(__DIR__ . '/Classes/Product.php');
     include_once(__DIR__ . '/Classes/bootstrap.php');
     include_once(__DIR__ . '/Classes/User.php');
+    include_once(__DIR__ . '/Classes/Cart.php');
     
     $products = Product::getAllProducts();
 
@@ -23,6 +24,12 @@
     if (!$product) {
         exit("404 - Product Not Found");
     }
+
+
+    // include the review functionss
+    require_once(__DIR__ . '/Classes/Review.php');
+    $reviewInstance = new Review();
+    $reviews = $reviewInstance->getAllReviews($id);
 
   
 ?><!DOCTYPE html>
@@ -45,34 +52,59 @@
 
             <!-- Product Details -->
             <div class="product-details">
-                <h1 class="product-title"><?php echo $product['Title']; ?></h1>
-                <p class="product-description"><?php echo $product['description']; ?></p>
-                <p class="product-price">€ <?php echo $product['Price']; ?></p>
+    <h1 class="product-title"><?php echo $product['Title']; ?></h1>
+    <p class="product-description"><?php echo $product['description']; ?></p>
+    <p class="product-price">€ <?php echo $product['Price']; ?></p>
 
-                <!-- Size Selection -->
-                <div class="product-size">
-                    <label for="size">Choose a size:</label>
-                    <select id="size" name="size">
-                        <option value="S">Small</option>
-                        <option value="M">Medium</option>
-                        <option value="L">Large</option>
-                        <option value="XL">Extra Large</option>
-                    </select>
-                </div>
+    <!-- Form for Add to Cart -->
+        <form action="Classes/add_to_cart.php" method="post" class="add-to-cart-form">
+        <!-- Hidden fields to pass data -->
+        <input type="hidden" name="product_id" value="<?php echo $product['ID']; ?>">
+        <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['Title']); ?>">
+        <input type="hidden" name="product_price" value="<?php echo $product['Price']; ?>">
+        <input type="hidden" name="user_id" value="<?php echo $user['ID']; ?>"> <!-- If user is logged in -->
 
-                <!-- Add to Cart Button -->
-                <button class="add-to-cart">Add to Cart</button>
-            </div>
+        <!-- Size Selection -->
+        <div class="product-size">
+            <label for="size">Choose a size:</label>
+            <select id="size" name="product_size" class="size-dropdown">
+                <option value="S">Small</option>
+                <option value="M">Medium</option>
+                <option value="L">Large</option>
+                <option value="XL">Extra Large</option>
+            </select>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+    </form>
+</div>
+
         </section>
 
         <!-- Additional Information Section -->
         <section class="additional-info">
-            <h2>More About This Product</h2>
-            <p>
-                This is a section where you can add more detailed explanations about the product, 
-                such as its materials, manufacturing process, or any special instructions for use.
-            </p>
+            <h2>Reviews</h2>
+            <form action="Classes/add_review.php" method="post" class="add-review">
+
+            <div class="review-form">
+                <label for="review">Write a review:</label>
+                <textarea name="review" id="review" class="review-textarea"></textarea>
+                <button type="submit" class="submit-review-btn">Submit Review</button>
+            </div>
+
+            <div class="reviews">
+                <?php foreach($reviews as $review): ?>
+                    <div class="review">
+                        <h3><?php echo htmlspecialchars($review['comment']); ?></h3>
+                        <p><?php echo $review['created_at']; ?></p>
+                        <h4><?php echo $review['firstname']; ?></h4>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
         </section>
     </main>
+
 </body>
 </html>
