@@ -168,6 +168,19 @@
             $statement->bindValue(':email', $email);
             return $statement->execute();
         }
+
+        public static function isAdmin($email){
+            $conn = Db::getConnection();
+            $statement = $conn->prepare("SELECT role FROM users WHERE email = :email");
+            $statement->bindValue(':email', $email);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            if ($result['role'] === 'admin'){
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
     
 
