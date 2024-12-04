@@ -6,6 +6,10 @@
         private $title;
         private $description;
         private $image;
+        private $price;
+        private $category_id;
+        private $size_id;
+        private $image_id;
 
         public function getID(){
             return $this->id;
@@ -72,24 +76,48 @@
             return $this;
         }
 
+        public function getPrice(){
+            return $this->price;
+        }
 
-        public static function getAllProducts(){
-                $conn = Db::getConnection();
-                $stmt = $conn->query('
-                    SELECT 
-                        products.ID AS product_id, 
-                        products.Title, 
-                        products.Description, 
-                        products.Price, 
-                        images.url AS image_url 
-                    FROM 
-                        products 
-                    INNER JOIN 
-                        images 
-                    ON 
-                        products.image_id = images.ID
-                ');
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        public function setPrice($price){
+            $this->price = $price;
+            return $this;
+        }
+
+        public function getCategoryID(){
+            return $this->category_id;
+        }
+
+        public function setCategoryID($category_id){
+            $this->category_id = $category_id;
+            return $this;
+        }
+
+        public function getSizeID(){
+            return $this->size_id;
+        }
+
+        public function setSizeID($size_id){
+            $this->size_id = $size_id;
+            return $this;
+        }
+
+        public function getImageID(){
+            return $this->image_id;
+        }
+
+        public function setImageID($image_id){
+            $this->image_id = $image_id;
+            return $this;
+        }
+
+
+
+        public static function getAllProducts() {
+            $conn = Db::getConnection();
+            $stmt = $conn->query('SELECT * FROM products');
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public static function getProductById($id) {
@@ -186,6 +214,46 @@
             public static function getAllCategories() {
                 $conn = Db::getConnection();
                 $stmt = $conn->query('SELECT ID, name FROM categories');
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+
+            public static function deleteProduct ($id) {
+                $conn = Db::getConnection();
+                $stmt = $conn->prepare('DELETE FROM products WHERE ID = :id');
+                $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+                return $stmt->execute();
+            }
+
+            public static function updateProduct($id, $title, $description, $price, $category_id, $image_id, $size_id) {
+                $conn = Db::getConnection();
+                $stmt = $conn->prepare('UPDATE products SET Title = :title, description = :description, Price = :price, category_id = :category_id, image_id = :image_id, size_id = :size_id WHERE ID = :id');
+                $stmt->bindValue(':title', $title);
+                $stmt->bindValue(':description', $description);
+                $stmt->bindValue(':price', $price);
+                $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+                $stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+                $stmt->bindValue(':size_id', $size_id, PDO::PARAM_INT);
+                $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+                return $stmt->execute();
+            }
+        
+            public static function addProduct($title, $description, $price, $category_id, $image_id, $size_id) {
+                $conn = Db::getConnection();
+                $stmt = $conn->prepare('INSERT INTO products (Title, description, Price, category_id, image_id, size_id) VALUES (:title, :description, :price, :category_id, :image_id, :size_id)');
+                $stmt->bindValue(':title', $title);
+                $stmt->bindValue(':description', $description);
+                $stmt->bindValue(':price', $price);
+                $stmt->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+                $stmt->bindValue(':image_id', $image_id, PDO::PARAM_INT);
+                $stmt->bindValue(':size_id', $size_id, PDO::PARAM_INT);
+                return $stmt->execute();
+            }
+
+            public static function searchProducts($searchTerm) {
+                $conn = Db::getConnection();
+                $stmt = $conn->prepare('SELECT * FROM products WHERE Title LIKE :searchTerm');
+                $stmt->bindValue(':searchTerm', '%' . $searchTerm . '%', PDO::PARAM_STR);
+                $stmt->execute();
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
     }
