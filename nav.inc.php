@@ -7,7 +7,7 @@
       <button class="dropdown-toggle"><?php echo htmlspecialchars($user['firstname']); ?></button>
       <div class="dropdown-menu profile-menu">
         <p>Your currency: <?php echo htmlspecialchars($user['coins']) ?> <span id="currency"></span></p>
-        <a href="">Orders</a>
+        <a href="orders.php">view Orders</a>
         <a href="profile.php">Profile</a>
         <a href="logout.php">Logout?</a>
       </div>
@@ -16,11 +16,26 @@
       <div class="basket">
         <button class="dropdown-toggle">Basket</button>
         <div class="dropdown-menu basket-menu">
-          <p id="empty-basket">Basket is empty</p>
-          <div id="basket-items-container"></div>
-          <p>Total Price: <span id="total-price"></span></p>
-          <p>Currency Left: <span id="currency-left"></span></p>
-          <button id="place-order">Place order</button>
+          <?php if (!empty($_SESSION['basket'])): ?>
+            <ul>
+              <?php foreach ($_SESSION['basket'] as $item): ?>
+                <li>
+                  <?php echo htmlspecialchars($item['title']); ?> - <?php echo $item['price']; ?>
+                  <form action="details.php?products_ID=<?php echo $item['id']; ?>" method="post">
+                    <input type="hidden" name="product_id" value="<?php echo $item['id']; ?>">
+                    <button type="submit" name="remove_from_basket" class="btn btn-remove">Remove</button>
+                  </form>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+              <form action="place_order.php" method="post">
+                  <button type="submit" name="view_basket" class="btn btn-view-basket">Place Order</button>
+              </form>
+          <?php else: ?>
+            <p>Your basket is empty.</p>
+          <?php endif; ?>
+
+          
         </div>
 
       </div>

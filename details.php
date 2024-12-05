@@ -25,6 +25,33 @@
         exit("404 - Product Not Found");
     }
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['add_to_basket'])) {
+            $item = [
+                'id' => $product['ID'],
+                'title' => $product['Title'],
+                'price' => $product['Price'],
+                'quantity' => 1
+            ];
+            $_SESSION['basket'][] = $item;
+        } elseif (isset($_POST['remove_from_basket'])) {
+            foreach ($_SESSION['basket'] as $key => $item) {
+                if ($item['id'] == $product['ID']) {
+                    unset($_SESSION['basket'][$key]);
+                    break;
+                }
+            }
+        }   
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['add_to_cart'])) {
+            Cart::addToCart($product['ID'], $product['Title'], $product['Price'], $_POST['product_size'], $_POST['user_id']);
+        } elseif (isset($_POST['remove_from_cart'])) {
+            Cart::removeFromCart($product['ID']);
+        }
+    }
+
 
     // include the review functionss
     require_once(__DIR__ . '/Classes/Review.php');
@@ -58,7 +85,7 @@
     <p class="product-price">€ <?php echo $product['Price']; ?></p>
 
     <!-- Form for Add to Cart -->
-        <form action="Classes/add_to_cart.php" method="post" class="add-to-cart-form">
+        <form action="details.php?products_ID=<?php echo $product['ID']; ?>" method="post" class="add-to-cart-form">
         <!-- Hidden fields to pass data -->
         <input type="hidden" name="product_id" value="<?php echo $product['ID']; ?>">
         <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product['Title']); ?>">
@@ -77,7 +104,7 @@
         </div>
 
         <!-- Add to Cart Button -->
-        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        <button type="submit" name="add_to_cart" class="btn">Add to Cart</button>
     </form>
 </div>
 

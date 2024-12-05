@@ -11,6 +11,10 @@
     
     $user = User::getUserByEmail($_SESSION['email']);
 
+    $_SESSION['user_id'] = $user['ID'];
+    $_SESSION['email'] = $user['email'];
+    // After successful login
+
     if (User::isAdmin($user['email'])) {
         header('location: admin.php');
     }
