@@ -11,6 +11,10 @@
     
     $user = User::getUserByEmail($_SESSION['email']);
 
+    if (User::isAdmin($user['email'])) {
+        header('location: admin.php');
+    }
+
     // Get search and category filter values from the form (if any)
     $search = isset($_POST['search']) ? $_POST['search'] : '';
     $category = isset($_POST['category']) ? $_POST['category'] : 'all';
