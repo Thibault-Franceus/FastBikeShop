@@ -85,6 +85,7 @@
 					document.querySelector('.btn').removeAttribute('disabled');
 				}else{
 					document.querySelector('#email-check-status').innerHTML = 'Email is not available';
+					document.querySelector('.btn').setAttribute('disabled', 'disabled');
 				}
 			})
 			.catch(error => console.error('Error:', error));
