@@ -135,9 +135,9 @@
                     INNER JOIN 
                         images 
                     ON 
-                        products.image_id = images.ID 
+                        products.image_id = images.my_row_id 
                     WHERE 
-                        products.ID = :id
+                        products.my_row_id = :id
                 ');
 
                 
@@ -165,7 +165,7 @@
                 // Base query to get products with categories joined
                 $query = '
                     SELECT 
-                        products.ID AS product_id, 
+                        products.my_row_id AS product_id, 
                         products.Title, 
                         products.Description, 
                         products.Price, 
@@ -177,7 +177,7 @@
                     INNER JOIN 
                         images 
                     ON 
-                        products.image_id = images.ID
+                        products.image_id = images.my_row_id  -- Join the images table
                     INNER JOIN 
                         categories 
                     ON 
@@ -213,20 +213,20 @@
             
             public static function getAllCategories() {
                 $conn = Db::getConnection();
-                $stmt = $conn->query('SELECT ID, name FROM categories');
+                $stmt = $conn->query('SELECT my_row_id, name FROM categories');
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
 
             public static function deleteProduct ($id) {
                 $conn = Db::getConnection();
-                $stmt = $conn->prepare('DELETE FROM products WHERE ID = :id');
+                $stmt = $conn->prepare('DELETE FROM products WHERE my_row_id = :id');
                 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
                 return $stmt->execute();
             }
 
             public static function updateProduct($id, $title, $description, $price, $category_id, $image_id, $size_id) {
                 $conn = Db::getConnection();
-                $stmt = $conn->prepare('UPDATE products SET Title = :title, description = :description, Price = :price, category_id = :category_id, image_id = :image_id, size_id = :size_id WHERE ID = :id');
+                $stmt = $conn->prepare('UPDATE products SET Title = :title, description = :description, Price = :price, category_id = :category_id, image_id = :image_id, size_id = :size_id WHERE my_row_id = :id');
                 $stmt->bindValue(':title', $title);
                 $stmt->bindValue(':description', $description);
                 $stmt->bindValue(':price', $price);
