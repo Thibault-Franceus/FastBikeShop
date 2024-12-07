@@ -11,7 +11,7 @@
     
     $user = User::getUserByEmail($_SESSION['email']);
 
-    $_SESSION['user_id'] = $user['my_row_id'];
+    $_SESSION['user_id'] = $user['ID'];
     $_SESSION['email'] = $user['email'];
     // After successful login
 
@@ -53,7 +53,7 @@
                     <option disabled selected hidden value="bla">Categories</option>
                     <option value="all">All</option>
                     <?php foreach ($categories as $category): ?>
-                        <option value="<?php echo $category['my_row_id']; ?>" <?php echo $category['my_row_id'] == $category ? 'selected' : '';?>>
+                        <option value="<?php echo $category['ID']; ?>" <?php echo $category['ID'] == $category ? 'selected' : '';?>>
                             <?php echo htmlspecialchars($category['name']); ?>
                         </option>
                     <?php endforeach; ?>
