@@ -185,7 +185,7 @@
 
         public static function updateCurrency($user_id, $coins){
             $conn = Db::getConnection();
-            $statement = $conn->prepare("UPDATE users SET coins = :coins WHERE ID = :user_id");
+            $statement = $conn->prepare("UPDATE users SET coins = :coins WHERE my_row_id = :user_id");
             $statement->bindValue(':coins', $coins);
             $statement->bindValue(':user_id', $user_id);
             return $statement->execute();
