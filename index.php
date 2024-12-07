@@ -5,9 +5,10 @@
 
     
     session_start();
-    //if($_SESSION['loggedin'] !== true){
-        //header('location: login.php');
-    //}
+    if($_SESSION['loggedin'] !== true){
+        header('location: login.php');
+    }
+
     
     $user = User::getUserByEmail($_SESSION['email']);
 
