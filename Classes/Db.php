@@ -3,14 +3,16 @@ class Db {
     private static $conn = null;
 
     public static function getConnection() {
-        if (self::$conn == null) {
-            self::$conn = new PDO('mysql:dbname=bikeshop;host=127.0.0.1', 'root', '');
-            return self::$conn;
-            echo "it works";
-        } 
-        else {
-            return self::$conn;
-        }
+        $pathToSSL = __DIR__ . '/cacert.pem';
+        $options = array(
+            PDO::MYSQL_ATTR_SSL_CA => $pathToSSL
+        );
+
+        $host = 'bikeshopweb.mysql.database.azure.com';
+        $db = 'bikeshop';
+        $user = 'trekbikes';
+        $pass = '4rL#2m$9Bn@7tQv!';
+        $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass, $options);
     }
 }
         
