@@ -9,7 +9,7 @@ class Db {
         );
 
         $host = 'bikeshopweb.mysql.database.azure.com';
-        $db = 'bikeshop';
+        $db = 'TrekBikes';
         $user = 'trekbikes';
         $pass = '4rL#2m$9Bn@7tQv!';
         $conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass, $options);
