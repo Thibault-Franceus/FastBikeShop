@@ -1,0 +1,1 @@
+Created a e-commerce on php project. To watch the project go to the https://trekbikesshop-ede8ghcugvfydqar.eastus-01.azurewebsites.net/login.php and register or log in. After your login please reconnect to the https://trekbikesshop-ede8ghcugvfydqar.eastus-01.azurewebsites.net/index.php some small errors are ruining the continuity of the app. 
