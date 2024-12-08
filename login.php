@@ -21,7 +21,7 @@ if (!empty($_POST)) {
         $_SESSION['loggedin'] = true;
         $_SESSION['email'] = $email;
 
-        header('Location: index.php');
+        header('Location: /index.php');
         exit;
     } else {
         $error = true;
