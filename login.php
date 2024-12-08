@@ -7,7 +7,7 @@ include_once(__DIR__ . '/Classes/User.php');
 function canLogIn($email, $password) {
     $user = User::getUserByEmail($email);
     if ($user && password_verify($password, $user['password'])) {
-        return true;
+        return $user;
     } else {
         return false;
     }
@@ -19,9 +19,10 @@ if (!empty($_POST)) {
 
     if (canLogIn($email, $password)) {
         $_SESSION['loggedin'] = true;
+        $_SESSION['user_id'] = $user['ID'];
         $_SESSION['email'] = $email;
 
-        header('Location: /index.php');
+        header('Location: index.php');
         exit;
     } else {
         $error = true;

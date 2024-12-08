@@ -1,32 +1,30 @@
 <?php
+    session_start();
     include_once(__DIR__ . '/Classes/Db.php');
     include_once(__DIR__ . '/Classes/Product.php');
     include_once(__DIR__ . '/Classes/User.php');
-
     
-    session_start();
-    if($_SESSION['loggedin'] !== true){
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         header('location: login.php');
+        exit;
     }
-
     
     $user = User::getUserByEmail($_SESSION['email']);
-
     $_SESSION['user_id'] = $user['ID'];
     $_SESSION['email'] = $user['email'];
-    // After successful login
-
+    
     if (User::isAdmin($user['email'])) {
         header('location: admin.php');
+        exit;
     }
-
+    
     // Get search and category filter values from the form (if any)
     $search = isset($_POST['search']) ? $_POST['search'] : '';
     $category = isset($_POST['category']) ? $_POST['category'] : 'all';
-
+    
     // Get products based on filters
     $products = Product::getFilteredProducts($search, $category);
-
+    
     // Fetch categories for the dropdown
     $categories = Product::getAllCategories();
 ?><!DOCTYPE html>
