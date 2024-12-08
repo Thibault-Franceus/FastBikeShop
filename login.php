@@ -22,6 +22,8 @@ if (!empty($_POST)) {
         $_SESSION['user_id'] = $user['ID'];
         $_SESSION['email'] = $email;
 
+        error_log('Session variables set: ' . print_r($_SESSION, true));
+
         header('Location: index.php');
         exit;
     } else {
