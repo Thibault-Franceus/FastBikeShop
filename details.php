@@ -1,9 +1,15 @@
 <?php
+    session_start();
     include_once(__DIR__ . '/Classes/Db.php');
     include_once(__DIR__ . '/Classes/Product.php');
     include_once(__DIR__ . '/Classes/bootstrap.php');
     include_once(__DIR__ . '/Classes/User.php');
     include_once(__DIR__ . '/Classes/Cart.php');
+
+    if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+        header('location: login.php');
+        exit;
+    }
     
     $products = Product::getAllProducts();
 
