@@ -17,7 +17,6 @@ $orders = Order::getOrdersByUserId($user_id);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orders</title>
     <link rel="stylesheet" href="CSS/style.css">
-    <link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
 <body>
     <?php include_once(__DIR__ . '/nav.inc.php'); ?>

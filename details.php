@@ -67,7 +67,6 @@
     <title><?php echo $product['Title']; ?></title>
     <link rel="stylesheet" href="CSS/styles.css">
     <link rel="stylesheet" href="CSS/style.css">
-    <link rel="icon" type="image/x-icon" href="images/favicon.png">
 </head>
 <body>
     <?php include_once(__DIR__ . '/nav.inc.php'); ?>
