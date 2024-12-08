@@ -5,6 +5,11 @@ include_once(__DIR__ . '/Classes/Cart.php');
 include_once(__DIR__ . '/Classes/Order.php');
 include_once(__DIR__ . '/Classes/User.php');
 
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('Location: login.php');
+    exit();
+}
+
 $user = User::getUserByEmail($_SESSION['email']);
 $cart_items = Cart::getCartItems();
 $total_price = array_sum(array_column($cart_items, 'price'));

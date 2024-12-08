@@ -5,6 +5,11 @@ include_once(__DIR__ . '/Classes/Order.php');
 include_once(__DIR__ . '/Classes/User.php');
 include_once(__DIR__ . '/Classes/Product.php');
 
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('Location: login.php');
+    exit();
+}
+
 $user = User::getUserByEmail($_SESSION['email']);
 $user_id = $_SESSION['user_id'];
 $orders = Order::getOrdersByUserId($user_id);
