@@ -17,7 +17,7 @@ class Db {
                 self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e){
                 error_log('Connection error: ' . $e->getMessage());
-                die('Connection failed. Please check error log.');
+                die('Connection failed.' . $e->getMessage());
             }
         }
         return self::$conn;
