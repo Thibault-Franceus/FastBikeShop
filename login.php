@@ -16,8 +16,9 @@ function canLogIn($email, $password) {
 if (!empty($_POST)) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-
-    if (canLogIn($email, $password)) {
+    
+    $user = canLogIn($email, $password);
+    if ($user) {
         $_SESSION['loggedin'] = true;
         $_SESSION['user_id'] = $user['ID'];
         $_SESSION['email'] = $email;
