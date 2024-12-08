@@ -5,7 +5,7 @@ class Db {
     public static function getConnection(){
         if (self::$conn == null){
             try{
-                $pathToSSL = './cacert.pem';
+                $pathToSSL = '/cacert.pem';
                 $options = array(PDO::MYSQL_ATTR_SSL_CA => $pathToSSL);
 
                 $host = 'bikeshopweb.mysql.database.azure.com';
