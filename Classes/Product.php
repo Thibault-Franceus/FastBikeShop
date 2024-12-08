@@ -165,7 +165,7 @@
                 // Base query to get products with categories joined
                 $query = '
                     SELECT 
-                        products.my_row_id AS product_id, 
+                        products.ID AS product_id,
                         products.Title, 
                         products.Description, 
                         products.Price, 
@@ -177,7 +177,7 @@
                     INNER JOIN 
                         images 
                     ON 
-                        products.image_id = images.my_row_id  -- Join the images table
+                        products.image_id = images.ID  -- Join the images table
                     INNER JOIN 
                         categories 
                     ON 

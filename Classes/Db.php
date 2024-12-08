@@ -1,18 +1,35 @@
 <?php 
 class Db {
-    private static $conn = null;
+    private static $conn = null; 
 
-    public static function getConnection() {
-        if(self::$conn == null){
-            self::$conn = new PDO('mysql:dbname=bikeshop;host=127.0.0.1', 'root', '');
-            return self::$conn;
+    public static function getConnection(){
+        if (self::$conn == null){
+            try{
+                $pathToSSL = './cacert.pem';
+                $options = array(PDO::MYSQL_ATTR_SSL_CA => $pathToSSL);
 
+                $host = 'trekbikesshop-ede8ghcugvfydqar.eastus-01.azurewebsites.net';
+                $db = 'bikeshop';
+                $user = 'trekbikes';
+                $pass = '4rL#2m$9Bn@7tQv!';
+
+                self::$conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass, $options);
+                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e){
+                error_log('Connection error: ' . $e->getMessage());
+                die('Connection failed. Please check error log.');
+            }
         }
-        else {
-            return self::$conn;
-        }
+        return self::$conn;
+            }
     }
-}
+
         
     
 ?>
+
+
+
+
+
+
